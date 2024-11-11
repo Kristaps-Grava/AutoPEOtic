@@ -1,0 +1,78 @@
+# the g-code instructions from "gcode.txt" are sent to Arduino that has GRBL uploaded
+
+# X axis represents left-right movement
+# Y axis represents up-down movement
+# Z axis represents extrusion of wire
+
+import serial
+import time
+
+def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate, instructions_file):
+    # Open serial port with timeout
+    main_serial = serial.Serial(main_port, main_baud_rate, timeout=1)
+    stepper_serial = serial.Serial(stepper_port, stepper_baud_rate, timeout=1)
+
+    time.sleep(2)  # Wait for connection to establish
+
+    stepper_serial.write(b'$$\n')
+    time.sleep(1)
+    response = stepper_serial.readline().decode().strip()
+    print('settings: {response}')
+
+    # Unlock GRBL (clear any alarms)
+    stepper_serial.write(b'$X\n')
+    time.sleep(1)
+    response = stepper_serial.readline().decode().strip()
+    print(f'Unlock Response: {response}')
+
+    # Open instruction file
+    with open(instructions_file, 'r') as file:
+        lines = file.readlines()
+
+    # Send instructions lines
+    for line in lines:
+        line = line.strip()  # Remove any whitespace
+        
+        if line.startswith("SERVO") or line.startswith("SOLENOID"):
+            main_serial.write((line + '\n').encode()) # Send instructions to Main Arduino
+
+        elif line.startswith("#"):
+            pass
+
+        elif line:
+            stepper_serial.write((line + '\n').encode())  # Send G-code line
+            print(f'Sent: {line}')
+            
+            if line.startswith('G4'): # Handle dwell (G4) command explicitly
+                # Extract the dwell time in milliseconds
+                try:
+                    duration = int(line.split('P')[1]) / 1000.0
+                    print(f'Dwelling for {duration} seconds')
+                    time.sleep(duration)  # Perform the dwell
+
+                except (IndexError, ValueError):
+                    print("Error parsing G4 command. Skipping dwell.")
+                    continue
+
+            while True: # print the response from GRBL
+                response = stepper_serial.readline().decode().strip()
+                
+                if response:
+                    print(f'Response: {response}')
+                if response == 'ok' or 'error' in response:
+                    break
+
+            time.sleep(0.1)  # Delay to allow GRBL to process
+
+    # Close serial port
+    stepper_serial.close()
+    main_serial.close()
+
+if __name__ == "__main__":
+    main_port = 'COM10'
+    main_baud_rate = 9600
+    stepper_port = 'COM5'
+    stepper_baud_rate = 115200  # 115200 is default for GRBL
+    instructions_file = 'instructions.txt'
+
+    send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate, instructions_file)

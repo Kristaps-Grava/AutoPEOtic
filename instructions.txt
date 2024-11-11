@@ -1,0 +1,21 @@
+# This file features instructions that the machine has to make
+#
+# SERVO {angle}
+# this command, for example, SERVO 60 sets servo motor to 60deg angle
+#
+# SOLENOID {position}
+# this command, for example, SOLENOID IN pulls in solenoid and keeps it that way until SOLENOID OUT is received
+#
+# other commands are gcode instructions for the moving hand
+#
+G21
+G90
+F2000
+SERVO 100
+G1 X10 Y-10
+G4 P1
+G1 X0 Y10
+G4 P1
+G4 P1
+G1 X0 Y0
+M30
