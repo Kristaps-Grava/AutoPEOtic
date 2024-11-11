@@ -1,7 +1,8 @@
 String latestInstruction = ""; // A string to hold incoming data
 bool stringComplete = false;   // Whether the string is complete
 
-int solenoid_pin = 4 int servo_pwm_pin = 5
+int solenoid_pin = 4
+int servo_pwm_pin = 5
 
     void
     setup()
