@@ -1,8 +1,8 @@
-# the g-code instructions from "gcode.txt" are sent to Arduino that has GRBL uploaded
+# this code will be running on raspberry pi and will control 2 Arduinos
 
-# X axis represents left-right movement
-# Y axis represents up-down movement
-# Z axis represents extrusion of wire
+# from the instructions.txt, gcode instructions will be sent to stepper Arduino;
+# servo and solenoid instructions will be sent to main Arduino
+
 
 import serial
 import time

@@ -1,12 +1,12 @@
-# This file features instructions that the machine has to make
+# X axis represents left-right movement
+# Y axis represents up-down movement
+# Z axis represents extrusion of wire
 #
 # SERVO {angle}
 # this command, for example, SERVO 60 sets servo motor to 60deg angle
 #
 # SOLENOID {position}
 # this command, for example, SOLENOID IN pulls in solenoid and keeps it that way until SOLENOID OUT is received
-#
-# other commands are gcode instructions for the moving hand
 #
 G21
 G90
