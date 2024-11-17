@@ -9,7 +9,7 @@ import time
 
 def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate, instructions_file):
     # Open serial port with timeout
-    main_serial = serial.Serial(main_port, main_baud_rate, timeout=1)
+    #main_serial = serial.Serial(main_port, main_baud_rate, timeout=1)
     stepper_serial = serial.Serial(stepper_port, stepper_baud_rate, timeout=1)
 
     time.sleep(2)  # Wait for connection to establish
@@ -34,7 +34,8 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
         line = line.strip()  # Remove any whitespace
         
         if line.startswith("SERVO") or line.startswith("SOLENOID"):
-            main_serial.write((line + '\n').encode()) # Send instructions to Main Arduino
+            #main_serial.write((line + '\n').encode()) # Send instructions to Main Arduino
+            pass
 
         elif line.startswith("#"):
             pass
