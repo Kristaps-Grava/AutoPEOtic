@@ -3,6 +3,7 @@
 # from the instructions.txt, gcode instructions will be sent to stepper Arduino;
 # servo and solenoid instructions will be sent to main Arduino
 
+# IMPORTANT: stepper port needs to be connected before the main port!
 
 import serial
 import time
@@ -70,9 +71,9 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
     main_serial.close()
 
 if __name__ == "__main__":
-    main_port = 'COM10'
+    main_port = '/dev/ttyUSB0'
     main_baud_rate = 9600
-    stepper_port = 'COM5'
+    stepper_port = '/dev/ttyUSB0'
     stepper_baud_rate = 115200  # 115200 is default for GRBL
     instructions_file = 'instructions.txt'
 
