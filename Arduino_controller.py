@@ -36,7 +36,6 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
         
         if line.startswith("SERVO") or line.startswith("SOLENOID"):
             main_serial.write((line + '\n').encode()) # Send instructions to Main Arduino
-            pass
 
         elif line.startswith("#"):
             pass
@@ -72,7 +71,7 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
 
 if __name__ == "__main__":
     main_port = '/dev/ttyUSB1'
-    main_baud_rate = 9600
+    main_baud_rate = 115200
     stepper_port = '/dev/ttyUSB0'
     stepper_baud_rate = 115200  # 115200 is default for GRBL
     instructions_file = 'instructions.txt'

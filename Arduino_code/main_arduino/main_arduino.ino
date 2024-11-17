@@ -13,7 +13,7 @@ int servo_state = 0;    // servo state is represented by its angle
 int solenoid_state = 0; // solenoid state is represented by 0 or 1. SOLENOID OUT = 0; SOLENOID IN = 1
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(solenoid_pin, OUTPUT);
   pinMode(servo_pwm_pin, OUTPUT);
   pinMode(13, OUTPUT); // used for debugging
