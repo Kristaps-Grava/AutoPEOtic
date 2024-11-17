@@ -15,9 +15,9 @@ void setup()
 {
     Serial.begin(9600);
     pinMode(solenoid_pin, OUTPUT)
-        pinMode(servo_pwm_pin, OUTPUT)
-
-            servo.attach(servo_pwm_pin);
+    pinMode(servo_pwm_pin, OUTPUT)
+    pinMode(13, OUTPUT) // used for debugging
+    servo.attach(servo_pwm_pin);
 }
 
 void loop()
@@ -27,23 +27,23 @@ void loop()
     {
         Serial.println(latestInstruction) // Print the received string for debugging
 
-            if latestInstruction.startswith("SERVO");
+        if latestInstruction.startswith("SERVO");
         {
             instruction_array = splitString(latestInstruction, " ")
-                servo_state = instruction_array[1]
+            servo_state = instruction_array[1]
 
-                              myservo.write(servo_state)
+            myservo.write(servo_state))
+	    digitalWrite(13,HIGH)
+	    delay(1000)
+	    digitalWrite(13,LOW)
         }
-        if latestInstruction
-            .startswith("SOLENOID");
+        if latestInstruction.startswith("SOLENOID");
         {
-            if latestInstruction
-                .endswith("OUT")
+            if latestInstruction.endswith("OUT")
                 {
                     digitalWrite(solenoid_pin, LOW);
                 }
-            if latestInstruction
-                .endswith("IN")
+            if latestInstruction.endswith("IN")
                 {
                     digitalWrite(solenoid_pin, HIGH);
                 }
