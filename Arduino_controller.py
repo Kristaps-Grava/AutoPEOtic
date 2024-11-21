@@ -30,7 +30,9 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
     with open(instructions_file, 'r') as file:
         lines = file.readlines()
 
-    # Send instructions lines
+    print(lines) # debugging to check how the code sees instructions
+
+    # Send instruction lines
     for line in lines:
         line = line.strip()  # Remove any whitespace
         
@@ -63,16 +65,16 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
                 if response == 'ok' or 'error' in response:
                     break
 
-            time.sleep(0.1)  # Delay to allow GRBL to process
+            time.sleep(3)  # Delay to allow GRBL to process
 
     # Close serial port
     stepper_serial.close()
     main_serial.close()
 
 if __name__ == "__main__":
-    main_port = '/dev/ttyUSB1'
+    main_port = '/dev/ttyUSB1' # for linux "/dev/ttyUSB1"
     main_baud_rate = 115200
-    stepper_port = '/dev/ttyUSB0'
+    stepper_port = '/dev/ttyUSB0' # for linux "/dev/ttyUSB0"
     stepper_baud_rate = 115200  # 115200 is default for GRBL
     instructions_file = 'instructions.txt'
 

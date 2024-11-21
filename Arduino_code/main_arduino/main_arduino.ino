@@ -24,7 +24,7 @@ void loop() {
   // Check if the string is complete
 
   if (stringComplete) {
-    Serial.println(latestInstruction); // Print the received string for debugging
+    //Serial.println(latestInstruction); // Print the received string for debugging
 
     if (latestInstruction.startsWith("SERVO")) {
       int delimiterIndex = latestInstruction.indexOf(" ");
