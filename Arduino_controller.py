@@ -65,7 +65,7 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
                 if response == 'ok' or 'error' in response:
                     break
 
-            time.sleep(3)  # Delay to allow GRBL to process
+            time.sleep(10)  # Delay to allow GRBL to process
 
     # Close serial port
     stepper_serial.close()
