@@ -2,21 +2,24 @@
 # Y axis represents up-down movement
 # Z axis represents extrusion of wire
 #
-# SERVO {angle}
-# this command, for example, SERVO 60 sets servo motor to 60deg angle
+# WIRE CUT
+# this command moves the servo to cut the wire
 #
 # SOLENOID {position}
 # this command, for example, SOLENOID IN pulls in solenoid and keeps it that way until SOLENOID OUT is received
 #
+# T={time}
+# this command is used to show how much time the command will take in seconds
+#
 G21
 G90
 F2000
-SERVO 100
-G1 X34 Y6
+WIRE CUT
+G1 X20 Y6
 G4 P1
-G1 Y0 Z20
-G4 P1
+G1 Y0 Z-20
+G4 P1 
 G1 Y6
-SERVO 100
+WIRE CUT
 G1 X0 Y0
 M30

@@ -36,7 +36,7 @@ def send_instructions(main_port, main_baud_rate, stepper_port, stepper_baud_rate
     for line in lines:
         line = line.strip()  # Remove any whitespace
         
-        if line.startswith("SERVO") or line.startswith("SOLENOID"):
+        if line.startswith("WIRE") or line.startswith("SOLENOID"):
             main_serial.write((line + '\n').encode()) # Send instructions to Main Arduino
 
         elif line.startswith("#"):
