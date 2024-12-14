@@ -1,5 +1,4 @@
 # For modbus register addresses and settings see PEO.txt documentation
-
 from pymodbus.client import ModbusSerialClient
 from time import sleep
 
@@ -14,7 +13,7 @@ Pulseneg = 100 # 0-9999
 Pause2 = 100 # 2-9999
 Multiplier = 3 # 3-6 (n*10-3 - n*10-6)
 
-def main(Upos,Ipos,Uneg,Ineg,Pulsepos,Pause1,Pulseneg,Pause2,Multiplier):
+def writeSettings(Upos,Ipos,Uneg,Ineg,Pulsepos,Pause1,Pulseneg,Pause2,Multiplier):
     
     serial = ModbusSerialClient(port='COM10', baudrate=19200, parity='E', stopbits=1, bytesize=8)
     serial.connect()

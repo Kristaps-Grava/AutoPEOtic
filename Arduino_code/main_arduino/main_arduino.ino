@@ -2,7 +2,6 @@
 
 Servo servo;
 
-String command = "";
 String latestInstruction = ""; // A string to hold incoming data
 bool stringComplete = true;    // Whether the string is complete
 
@@ -17,8 +16,13 @@ void setup()
   Serial.begin(115200);
   pinMode(solenoid_pin, OUTPUT);
   pinMode(servo_pwm_pin, OUTPUT);
-  pinMode(13, OUTPUT); // used for debugging
   servo.attach(servo_pwm_pin);
+
+  servo.write(180);
+  delay(500);
+  servo.write(90);
+  delay(500);
+  servo.write(180);
 }
 
 void loop()
