@@ -11,11 +11,11 @@
 #
 
 #TODO: test each communication method independently
+#TODO: finish Arduino code for main Arduino and microPython code for Raspbery pico
 
-import PEO
-import serial
 from pymodbus.client import ModbusSerialClient
 import configparser
+import serial
 import time
 
 #creates and object from which settings can be accessed
@@ -79,7 +79,7 @@ class stepperCommunication(communication):
 #TODO test progress: NOT PERFORMED
 #defines a children class for communication with spectroscope's raspberry pico using UART
 class spectromterCommunication(communication):
-    def __init__(self, name, pinRx, pinTx):
+    def __init__(self, name, port, baudrate, pinRx, pinTx):
         super().__init__(name, port, baudrate)
         self.Rx = pinRx
         self.Tx = pinTx
@@ -153,7 +153,7 @@ class peoCommunication(communication):
         serial.write_coil(2, True, slave=20)
         serial.write_coil(3, True, slave=20)
 
-        sleep(1)
+        time.sleep(1)
 
 
 #initialises communication method with each device, at this point __init__() executes for each object
@@ -177,22 +177,26 @@ PEO = peoCommunication('PEO',
                         #TODO: place all PEO settings into a list
                         #TODO: update instructions.ini to include new variables
 
-#goes through all of the instruction
+#goes through all of the instructions
+line = 1
 for instruction in instructions:
     print(f'Sending: {instruction}')
     
     #a check to see for which device the instruction is written; then the instruction is sent
-    line = 1
     if instruction.startswith('WIRE' or 'SOLENOID'):
-        main.sendInstruction(instruction)
+        #main.sendInstruction(instruction)
+        pass
 
     elif instruction.startswith('G1' or 'G4' or 'M30' or 'F'):
         stepper.sendInstruction(instruction)
 
+    elif instruction.startswith('PEO'):
+        #PEO.sendInstruction(instruction)
+        pass
     elif instruction.startswith('#'):
         pass
 
     else:
-        print(f'{instruction} not recognised at line:{line})
+        print(f'{instruction} not recognised at line:{line}')
 
-    line +-= 1
+    line += 1

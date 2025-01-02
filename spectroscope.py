@@ -15,13 +15,10 @@ video = ADC(VIDEO)
 clk.value(1)
 start.value(0)
 
-#TODO: read spectrum 10 times and take output the average of all measurements
-
 def readSpectrometer():
-    
     spectrum = []
     
-    delay = 1
+    delay = 10
 
     clk.value(0)
     sleep_us(delay)
@@ -32,22 +29,24 @@ def readSpectrometer():
     sleep_us(delay)
     start.value(1)
 
-    for i in range(0, 6):
+    for i in range(0, 14):
+        spectrum.append(ADC.read_u16(video))
         clk.value(1)
-        sleep_us(delay)
+        sleep_us(14)
         clk.value(0)
         sleep_us(delay)
     
     start.value(0)
 
-    for i in range(0,87):
+    for i in range(0,86):
+        spectrum.append(ADC.read_u16(video))
         clk.value(1)
         sleep_us(delay)
         clk.value(0)
         sleep_us(delay)
     
-    for i in range(0, CHANNELS):
-        spectrum.append(ADC.read_u16())
+    for i in range(0, CHANNELS-1):
+        spectrum.append(ADC.read_u16(video))
 
         clk.value(1)
         sleep_us(delay)
@@ -55,6 +54,7 @@ def readSpectrometer():
         sleep_us(delay)
 
     for i in range(0,6):
+        spectrum.append(ADC.read_u16(video))
         clk.value(1)
         sleep_us(delay)
         clk.value(0)
