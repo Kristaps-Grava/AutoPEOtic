@@ -13,7 +13,7 @@
 #TODO: test each communication method independently
 #TODO: finish Arduino code for main Arduino and microPython code for Raspbery pico
 
-from pymodbus.client import ModbusSerialClient
+#from pymodbus.client import ModbusSerialClient
 import configparser
 import serial
 import time
