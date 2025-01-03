@@ -181,6 +181,7 @@ PEO = peoCommunication('PEO',
 #goes through all of the instructions
 line = 1
 for instruction in instructions:
+    instruction.strip()
     print(f'Sending: {instruction}')
     
     #a check to see for which device the instruction is written; then the instruction is sent
