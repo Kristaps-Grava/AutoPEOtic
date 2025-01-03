@@ -48,6 +48,8 @@ class mainCommunication(communication):
 
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
+        response = self.serial.readline().decode().strip()
+        print(f'Response: {response}')
         time.sleep(10)
 
 #TODO test progress: PASSED
