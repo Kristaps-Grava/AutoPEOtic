@@ -57,7 +57,7 @@ class stepperCommunication(communication):
         super().__init__(name, port, baudrate)
         self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
         
-        self.__grblInit(self)
+        self.__grblInit()
 
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
