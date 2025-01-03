@@ -57,24 +57,24 @@ class stepperCommunication(communication):
         super().__init__(name, port, baudrate)
         self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
         
-        grblInit(self)
+        self.__grblInit(self)
 
-        def sendInstruction(self, instruction):
-            self.serial.write((f'{instruction}\n').encode())
-            time.sleep(10)
+    def sendInstruction(self, instruction):
+        self.serial.write((f'{instruction}\n').encode())
+        time.sleep(10)
 
-        def grblInit(self):
-	        #for debugging prints grbl settings
-            self.serial.write(b'$$\n')
-            time.sleep(1)
-            response = self.serial.readline().decode().strip()
-            print(f'Settings: {response}')
+    def __grblInit(self):
+	    #for debugging prints grbl settings
+        self.serial.write(b'$$\n')
+        time.sleep(1)
+        response = self.serial.readline().decode().strip()
+        print(f'Settings: {response}')
             
-            #unlocks grbl
-            self.serial.write(b'$X\n')
-            time.sleep(1)
-            response = self.serial.readline().decode().strip()
-            print(f'Unlock response: {response}')
+        #unlocks grbl
+        self.serial.write(b'$X\n')
+        time.sleep(1)
+        response = self.serial.readline().decode().strip()
+        print(f'Unlock response: {response}')
 
 #TODO test progress: NOT PERFORMED
 #defines a children class for communication with spectroscope's raspberry pico using UART
