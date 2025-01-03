@@ -159,7 +159,7 @@ class peoCommunication(communication):
 #initialises communication method with each device, at this point __init__() executes for each object
 stepper = stepperCommunication('stepper', config['stepper arduino']['port'], config['stepper arduino']['baudrate'])
 main = mainCommunication('main', config['main arduino']['port'], config['main arduino']['baudrate'])
-PEO = peoCommunication('PEO',
+#PEO = peoCommunication('PEO',
                        config['PEO']['port'],
                        config['PEO']['baudrate'],
                        config['PEO']['parity'],
