@@ -57,13 +57,13 @@ class stepperCommunication(communication):
         super().__init__(name, port, baudrate)
         self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
         
-        __grblInit(self)
+        _grblInit(self)
 
         def sendInstruction(self, instruction):
             self.serial.write((f'{instruction}\n').encode())
             time.sleep(10)
 
-        def __grblInit(self):
+        def _grblInit(self):
 	        #for debugging prints grbl settings
             self.serial.write(b'$$\n')
             time.sleep(1)
