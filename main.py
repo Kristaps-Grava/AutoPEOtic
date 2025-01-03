@@ -50,7 +50,7 @@ class mainCommunication(communication):
             self.serial.write((f'{instruction}\n').encode())
             time.sleep(10)
 
-#TODO test progress: NOT PERFORMED
+#TODO test progress: PASSED
 #defines a children class for communication with the stepper Arduino using serial
 class stepperCommunication(communication):
     def __init__(self, name, port, baudrate):
@@ -182,17 +182,16 @@ PEO = peoCommunication('PEO',
 line = 1
 for instruction in instructions:
     instruction.strip()
-    #print(f'Sending: {instruction}')
-    print(instruction)
-
+    print(f'Sending: {instruction}')
 
     #a check to see for which device the instruction is written; then the instruction is sent
     if instruction.startswith(('WIRE', 'SOLENOID')):
-        #main.sendInstruction(instruction)
+        main.sendInstruction(instruction)
         pass
 
-    elif instruction.startswith(('G1', 'G4', 'M30', 'F')):
-        stepper.sendInstruction(instruction)
+    elif instruction.startswith(('G1', 'G4', 'G21', 'G90', 'M30', 'F')):
+        #stepper.sendInstruction(instruction)
+        pass
 
     elif instruction.startswith('PEO'):
         #PEO.sendInstruction(instruction)
