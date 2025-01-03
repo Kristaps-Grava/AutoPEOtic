@@ -187,7 +187,7 @@ PEO = peoCommunication('PEO',
                         #TODO: place all PEO settings into a list
                         #TODO: update instructions.ini to include new variables
 """
-
+time.sleep(5)
 #goes through all of the instructions
 line = 1
 for instruction in instructions:
