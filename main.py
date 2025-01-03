@@ -46,9 +46,9 @@ class mainCommunication(communication):
         super().__init__(name, port, baudrate)
         self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
 
-        def sendInstruction(self, instruction):
-            self.serial.write((f'{instruction}\n').encode())
-            time.sleep(10)
+    def sendInstruction(self, instruction):
+        self.serial.write((f'{instruction}\n').encode())
+        time.sleep(10)
 
 #TODO test progress: PASSED
 #defines a children class for communication with the stepper Arduino using serial
@@ -85,23 +85,23 @@ class spectromterCommunication(communication):
         self.Tx = pinTx
         self.serial = serial.serial(self.port, self.baudrate)
 
-        def getSpectrum(self):
-            #PUROPOSE: to receive an array that contains spectrum data
-            #WORKFLOW:  1) an activation command is sent to the pico
-            #           2) the pico recieves the byte and executes readSpectrum() function
-            #           3) in the meanwhile getSpectrum() function waits for response
-            #           4) when finished measuring, pico sends spectrum data in the form of list
-            #           5) getSpectrum() command receives answer
+    def getSpectrum(self):
+        #PUROPOSE: to receive an array that contains spectrum data
+        #WORKFLOW:  1) an activation command is sent to the pico
+        #           2) the pico recieves the byte and executes readSpectrum() function
+        #           3) in the meanwhile getSpectrum() function waits for response
+        #           4) when finished measuring, pico sends spectrum data in the form of list
+        #           5) getSpectrum() command receives answer
 
-            self.serial.write(b'1')
-            spectrum = self.serial.readline().decode().strip()  #in this response is spectrum list
+        self.serial.write(b'1')
+        spectrum = self.serial.readline().decode().strip()  #in this response is spectrum list
 
-            #TODO finish .getSpectrum function
-            return spectrum
+        #TODO finish .getSpectrum function
+        return spectrum
 
-        def sendInstruction(self, instruction):
-            self.serial.write((f'{instruction}\n').encode())
-            time.sleep(10)
+    def sendInstruction(self, instruction):
+        self.serial.write((f'{instruction}\n').encode())
+        time.sleep(10)
 
 #TODO test progress: NOT PERFORMED
 #defines a children class for communication with PEO using modbus
