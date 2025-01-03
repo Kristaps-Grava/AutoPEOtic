@@ -17,10 +17,13 @@
 import configparser
 import serial
 import time
+import os
+
+os.path.join('..')
 
 #creates and object from which settings can be accessed
 config = configparser.ConfigParser()
-config.read("AutoPEOtic/settings/settings.ini")
+config.read("settings/settings.ini")
 
 #opens instructions file
 instructions = open(config['files']['instructions'], "r")
