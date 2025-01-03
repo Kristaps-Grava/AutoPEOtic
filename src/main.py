@@ -26,7 +26,7 @@ config = configparser.ConfigParser()
 config.read("settings/settings.ini")
 
 #opens instructions file
-instructions = open(config['files']['instructions'], "r")
+instructions = open('settings/instructions.ini', "r")
 
 #defines a parrent class for general communication with devices
 class communication:
