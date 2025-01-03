@@ -182,16 +182,16 @@ PEO = peoCommunication('PEO',
 line = 1
 for instruction in instructions:
     instruction.strip()
-    print(f'Sending: {instruction}')
-    
+    #print(f'Sending: {instruction}')
+    print(instruction)
+
+
     #a check to see for which device the instruction is written; then the instruction is sent
     if instruction.startswith('WIRE' or 'SOLENOID'):
         #main.sendInstruction(instruction)
-        print('shouldnttt be sent????wtf')
         pass
 
     elif instruction.startswith('G1' or 'G4' or 'M30' or 'F'):
-        print("senttt!! success")
         stepper.sendInstruction(instruction)
 
     elif instruction.startswith('PEO'):
