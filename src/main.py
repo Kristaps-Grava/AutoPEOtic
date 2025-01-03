@@ -23,10 +23,10 @@ os.path.join('..')
 
 #creates and object from which settings can be accessed
 config = configparser.ConfigParser()
-config.read("settings/settings.ini")
+config.read(os.path.join('..', 'settings', 'settings.ini'))
 
 #opens instructions file
-instructions = open('settings/instructions.ini', "r")
+instructions = open(os.path.join('..', 'settings', 'instructions.ini'), "r")
 
 #defines a parrent class for general communication with devices
 class communication:
