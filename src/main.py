@@ -49,8 +49,10 @@ class mainCommunication(communication):
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
         response = self.serial.readline().decode().strip()
+
+        print(f'Sending: {instruction}')
         print(f'Response: {response}')
-        time.sleep(10)
+        time.sleep(10)  #hard coded delay
 
 #TODO test progress: PASSED
 #defines a children class for communication with the stepper Arduino using serial
@@ -63,7 +65,11 @@ class stepperCommunication(communication):
 
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
-        time.sleep(10)
+        response = self.serial.readline().decode().strip()
+
+        print(f'Sending: {instruction}')
+        print(f'Response: {response}')
+        time.sleep(10) #hard coded delay
 
     def __grblInit(self):
 	    #for debugging prints grbl settings
@@ -98,7 +104,8 @@ class spectromterCommunication(communication):
         self.serial.write(b'1')
         spectrum = self.serial.readline().decode().strip()  #in this response is spectrum list
 
-        #TODO finish .getSpectrum function
+        print(f'Sending: {instruction}')
+        print(f'Response: {spectrum}')
         return spectrum
 
     def sendInstruction(self, instruction):
@@ -180,12 +187,10 @@ PEO = peoCommunication('PEO',
                         #TODO: place all PEO settings into a list
                         #TODO: update instructions.ini to include new variables
 """
+
 #goes through all of the instructions
 line = 1
 for instruction in instructions:
-    instruction.strip()
-    print(f'Sending: {instruction}')
-
     #a check to see for which device the instruction is written; then the instruction is sent
     if instruction.startswith(('WIRE', 'SOLENOID')):
         main.sendInstruction(instruction)
@@ -197,6 +202,9 @@ for instruction in instructions:
 
     elif instruction.startswith('PEO'):
         #PEO.sendInstruction(instruction)
+        pass
+    elif instruction.startswith('GET SPECTRUM'):
+        #spectrum.sendInstruction(instruction)
         pass
     elif instruction.startswith('#'):
         pass

@@ -1,3 +1,14 @@
+#PURPOSE:   To read analogue signal from the spectroscope, interpret it's data and send it to the raspberry pi using Rx Tx pins (UART). 
+#           This code runs on a peripheral Raspberry Pico
+#
+#WORKFLOW EXAMPLE:  1) receives message to measure spectrum from raspberry pi
+#                   2) measures spectrum using autoexposure (more info in datasheet)
+#                   3) fixes measured spectrum by wavelegth offset and intensity offset (indicated by manufacturer)
+#                   4) sends the spectrum via Rx and Tx pins
+
+#TODO: implement UART communication
+#TODO: change the code so that I could understand it
+
 from time import sleep_us, ticks_us, ticks_ms
 import machine
 from machine import Pin, I2C, PWM
@@ -134,14 +145,17 @@ if __name__ == '__main__':
             y = ticks_ms() - xtime
             print('Time:%.0fms'%(y),'wl@I_max:%.1f'%max(spectra))
             print(defexposure)
-            print(spectra)
+            
+            # coefficients for spectrometer with serial code 22D04697
+            calibratedSpectra = []
+            for pix in range (0, 288):
+                koef = 3.065491445e2+2.690623922e0*pix-8.719460785e-4*pix**2-9.829743805e-6*pix**3+1.665616863e-8*pix**4-4.388241822e-12*pix**5
+                calibratedSpectra.append(koef*spectra[pix])
+            
+            print(calibratedSpectra)
             if overexposed:
                 print("Probably overexposed!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             sleep_us(1000000)
     except KeyboardInterrupt:
         hama.pinST.low()
         sys.exit(0)
-        
-
-
-          

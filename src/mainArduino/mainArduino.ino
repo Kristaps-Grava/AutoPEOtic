@@ -20,7 +20,7 @@ int solenoid_state = 0; // solenoid state is represented by 0 or 1. SOLENOID OUT
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(9600);
   pinMode(solenoid_pin, OUTPUT);
   pinMode(servo_pwm_pin, OUTPUT);
   servo.attach(servo_pwm_pin);
@@ -38,9 +38,9 @@ void loop()
 
   if (stringComplete)
   {
-    // Serial.println(latestInstruction); // Print the received string for debugging
-
-    if (latestInstruction.startsWith("WIRE"))
+    Serial.println("I received"+latestInstruction); // Print the received string for debugging
+    latestInstruction.trim();
+    if (latestInstruction == "WIRE CUT")
     {
       servo.write(0);
       delay(1000);
