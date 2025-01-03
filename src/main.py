@@ -20,7 +20,7 @@ import time
 
 #creates and object from which settings can be accessed
 config = configparser.ConfigParser()
-config.read("settings.ini")
+config.read("AutoPEOtic/settings/settings.ini")
 
 #opens instructions file
 instructions = open(config['files']['instructions'], "r")
