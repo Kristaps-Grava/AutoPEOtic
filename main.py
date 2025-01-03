@@ -187,11 +187,11 @@ for instruction in instructions:
 
 
     #a check to see for which device the instruction is written; then the instruction is sent
-    if instruction.startswith('WIRE', 'SOLENOID'):
+    if instruction.startswith(('WIRE', 'SOLENOID')):
         #main.sendInstruction(instruction)
         pass
 
-    elif instruction.startswith('G1', 'G4', 'M30', 'F'):
+    elif instruction.startswith(('G1', 'G4', 'M30', 'F')):
         stepper.sendInstruction(instruction)
 
     elif instruction.startswith('PEO'):
