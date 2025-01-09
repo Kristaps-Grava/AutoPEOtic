@@ -38,13 +38,29 @@ void loop()
 
   if (stringComplete)
   {
-    Serial.println("I received"+latestInstruction); // Print the received string for debugging
+
     latestInstruction.trim();
     if (latestInstruction == "WIRE CUT")
     {
       servo.write(0);
-      delay(1000);
+      delay(2000);
       servo.write(180);
+      delay(500);
+
+      servo.write(0);
+      delay(2000);
+      servo.write(180);
+      delay(500);
+
+      servo.write(0);
+      delay(2000);
+      servo.write(180);
+      delay(500);
+
+      servo.write(0);
+      delay(2000);
+      servo.write(180);
+      delay(500);
     }
 
     if (latestInstruction.startsWith("SOLENOID"))
