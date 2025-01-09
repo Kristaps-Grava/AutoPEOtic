@@ -13,7 +13,7 @@
 #TODO: test each communication method independently
 #TODO: finish Arduino code for main Arduino and microPython code for Raspbery pico
 
-#from pymodbus.client import ModbusSerialClient
+from pymodbus.client import ModbusSerialClient
 import configparser
 import serial
 import time
@@ -42,7 +42,7 @@ class communication:
     def receiveData():
         raise NotImplementedError
 
-#TODO test progress: NOT PERFORMED
+#TODO test progress: PASSED
 #defines a children class for communication with the main Arduino using serial
 class mainCommunication(communication):
     def __init__(self, name, port, baudrate):
@@ -51,9 +51,7 @@ class mainCommunication(communication):
 
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
-
-        print(f'Sending: {instruction}')
-        time.sleep(10)  #hard coded delay
+        print(f'Sending: {instruction.strip()}')
 
 #TODO test progress: PASSED
 #defines a children class for communication with the stepper Arduino using serial
@@ -61,14 +59,11 @@ class stepperCommunication(communication):
     def __init__(self, name, port, baudrate):
         super().__init__(name, port, baudrate)
         self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
-
         self.__grblInit()
 
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
-
-        print(f'Sending: {instruction}')
-        time.sleep(10) #hard coded delay
+        print(f'Sending: {instruction.strip()}')
 
     def __grblInit(self):
 	    #for debugging prints grbl settings
@@ -106,10 +101,6 @@ class spectromterCommunication(communication):
         print(f'Sending: {instruction}')
         print(f'Response: {spectrum}')
         return spectrum
-
-    def sendInstruction(self, instruction):
-        self.serial.write((f'{instruction}\n').encode())
-        time.sleep(10)
 
 #TODO test progress: NOT PERFORMED
 #defines a children class for communication with PEO using modbus
@@ -196,8 +187,12 @@ for instruction in instructions:
         pass
 
     elif instruction.startswith(('G1', 'G4', 'G21', 'G90', 'M30', 'F')):
-        stepper.sendInstruction(instruction)
-        pass
+        if instruction.startswith('G4'):
+            G4, time = instruction.split(' ')
+            time.sleep(time)
+
+        else:
+            stepper.sendInstruction(instruction)
 
     elif instruction.startswith('PEO'):
         #PEO.sendInstruction(instruction)
