@@ -196,7 +196,7 @@ for instruction in instructions:
         pass
 
     elif instruction.startswith(('G1', 'G4', 'G21', 'G90', 'M30', 'F')):
-        #stepper.sendInstruction(instruction)
+        stepper.sendInstruction(instruction)
         pass
 
     elif instruction.startswith('PEO'):
