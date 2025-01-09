@@ -51,10 +51,8 @@ class mainCommunication(communication):
 
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
-        response = self.serial.readline().decode().strip()
 
         print(f'Sending: {instruction}')
-        print(f'Response: {response}')
         time.sleep(10)  #hard coded delay
 
 #TODO test progress: PASSED
@@ -63,15 +61,13 @@ class stepperCommunication(communication):
     def __init__(self, name, port, baudrate):
         super().__init__(name, port, baudrate)
         self.serial = serial.Serial(self.port, self.baudrate, timeout=1)
-        
+
         self.__grblInit()
 
     def sendInstruction(self, instruction):
         self.serial.write((f'{instruction}\n').encode())
-        response = self.serial.readline().decode().strip()
 
         print(f'Sending: {instruction}')
-        print(f'Response: {response}')
         time.sleep(10) #hard coded delay
 
     def __grblInit(self):
