@@ -12,18 +12,18 @@
 # this command is used to show how much time the command will take in seconds
 #
 GET SPECTRUM
-G4 P5
+G4 5
 GET SPECTRUM
-G4 P5
+G4 5
 GET SPECTRUM
-G4 P5
+G4 5
 GET SPECTRUM
-G4 P5
+G4 5
 GET SPECTRUM
-G4 P5
+G4 5
 GET SPECTRUM
-G4 P5
+G4 5
 GET SPECTRUM
-G4 P5
+G4 5
 GET SPECTRUM
-G4 P5
+G4 5

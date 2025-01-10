@@ -187,14 +187,14 @@ for instruction in instructions:
 
     elif instruction.startswith(('G1', 'G4', 'G21', 'G90', 'M30', 'F')):
         if instruction.startswith('G4'):
-            G4, time = instruction.split(' ')
-            time.sleep(time)
+            G4, t = instruction.split(' ')
+            time.sleep(int(t))
 
         else:
             stepper.sendInstruction(instruction)
 
     elif instruction.startswith('GET SPECTRUM'):
-        spectrum.getspectrum(instruction)
+        spectrum.getSpectrum()
         pass
 
     elif instruction.startswith('PEO'):
