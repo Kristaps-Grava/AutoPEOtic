@@ -18,6 +18,7 @@ class HAMA:
         self.picoADC = machine.ADC(27)
         self.CLK = 11
         self.ST = 10
+        self.GreenLED = Pin(16, Pin.OUT, Pin.PULL_DOWN)
 
         self.pinST = Pin(self.ST, Pin.OUT, Pin.PULL_DOWN)
         
@@ -143,12 +144,14 @@ if __name__ == '__main__':
                 y = ticks_ms() - xtime
                 print('Time:%.0fms'%(y),'wl@I_max:%.1f'%max(spectra))
                 print(defexposure)            
-
-
+                hama.GreenLED.high()
+                sleep_us(100000)
+                hama.GreenLED.low()
                 print(spectra)
             if overexposed:
                 print("Probably overexposed!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            sleep_us(1000000)
+            
     except KeyboardInterrupt:
         hama.pinST.low()
         sys.exit(0)
+
