@@ -78,7 +78,7 @@ class stepperCommunication(communication):
         response = self.serial.readline().decode().strip()
         print(f'Unlock response: {response}')
 
-#TODO test progress: NOT PERFORMED
+#TODO test progress: PASSED
 #defines a children class for communication with spectroscope's raspberry pico using UART
 class spectromterCommunication(communication):
     def __init__(self, name, port, baudrate):

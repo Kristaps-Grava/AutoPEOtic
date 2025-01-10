@@ -127,7 +127,7 @@ class HAMA:
         return anditsalsobad, self.exposure, self.spectra
         
     
-if __name__ == '__main__':
+if '__main__' == '__main__':
     overexposed = False
     defexposure = 0.01
     try:
@@ -141,9 +141,7 @@ if __name__ == '__main__':
                 xtime = ticks_ms()
                 #spectra = hama.main(exposure=0.001, accum=1) #exp in seconds
                 overexposed, defexposure, spectra = hama.autoexposure(defexposure)
-                y = ticks_ms() - xtime
-                print('Time:%.0fms'%(y),'wl@I_max:%.1f'%max(spectra))
-                print(defexposure)            
+                y = ticks_ms() - xtime           
                 hama.GreenLED.high()
                 sleep_us(100000)
                 hama.GreenLED.low()
@@ -154,4 +152,3 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         hama.pinST.low()
         sys.exit(0)
-
