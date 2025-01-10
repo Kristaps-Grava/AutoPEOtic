@@ -95,7 +95,7 @@ class spectromterCommunication(communication):
         #           4) when finished measuring, pico sends spectrum data in the form of list
         #           5) getSpectrum() command receives answer
 
-        self.serial.write(b'1')
+        self.serial.write(b'a')
         spectrum = self.serial.readline().decode().strip()  #in this response is spectrum list
 
         print(f'Sending: {instruction}')
@@ -158,6 +158,7 @@ class peoCommunication(communication):
 #initialises communication method with each device, at this point __init__() executes for each object
 stepper = stepperCommunication('stepper', config['stepper arduino']['port'], config['stepper arduino']['baudrate'])
 main = mainCommunication('main', config['main arduino']['port'], config['main arduino']['baudrate'])
+spectrum = spectromterCommunication('spectrum', config['spectroscope']['port'], config['spectroscope']['baudrate'])
 """"
 PEO = peoCommunication('PEO',
                        config['PEO']['port'],
@@ -194,12 +195,14 @@ for instruction in instructions:
         else:
             stepper.sendInstruction(instruction)
 
+    elif instruction.startswith('GET SPECTRUM'):
+        spectrum.getspectrum(instruction)
+        pass
+
     elif instruction.startswith('PEO'):
         #PEO.sendInstruction(instruction)
         pass
-    elif instruction.startswith('GET SPECTRUM'):
-        #spectrum.sendInstruction(instruction)
-        pass
+
     elif instruction.startswith('#'):
         pass
 

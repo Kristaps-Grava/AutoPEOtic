@@ -130,28 +130,22 @@ if __name__ == '__main__':
     overexposed = False
     defexposure = 0.01
     try:
-        #import LED
-        #led = LED.LED_control()
-        #led.LEDstate(*[0.2,0,0,0,0,0,0,0,0,0])
-        #led.cleanup()
-        while 1:
+        while True:
             import sys
-            spectra = list()
-            hama = HAMA()
-            xtime = ticks_ms()
-            #spectra = hama.main(exposure=0.001, accum=1) #exp in seconds
-            overexposed, defexposure, spectra = hama.autoexposure(defexposure)
-            y = ticks_ms() - xtime
-            print('Time:%.0fms'%(y),'wl@I_max:%.1f'%max(spectra))
-            print(defexposure)
             
-            # coefficients for spectrometer with serial code 22D04697
-            calibratedSpectra = []
-            for pix in range (0, 288):
-                koef = 3.065491445e2+2.690623922e0*pix-8.719460785e-4*pix**2-9.829743805e-6*pix**3+1.665616863e-8*pix**4-4.388241822e-12*pix**5
-                calibratedSpectra.append(koef*spectra[pix])
-            
-            print(calibratedSpectra)
+            command = sys.stdin.read(1)
+            if command == 'a':
+                spectra = list()
+                hama = HAMA()
+                xtime = ticks_ms()
+                #spectra = hama.main(exposure=0.001, accum=1) #exp in seconds
+                overexposed, defexposure, spectra = hama.autoexposure(defexposure)
+                y = ticks_ms() - xtime
+                print('Time:%.0fms'%(y),'wl@I_max:%.1f'%max(spectra))
+                print(defexposure)            
+
+
+                print(spectra)
             if overexposed:
                 print("Probably overexposed!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             sleep_us(1000000)
