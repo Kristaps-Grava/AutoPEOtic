@@ -83,7 +83,7 @@ class stepperCommunication(communication):
 class spectromterCommunication(communication):
     def __init__(self, name, port, baudrate):
         super().__init__(name, port, baudrate)
-        self.serial = serial.serial(self.port, self.baudrate)
+        self.serial = serial.Serial(self.port, self.baudrate)
 
     def getSpectrum(self):
         #PUROPOSE: to receive an array that contains spectrum data
