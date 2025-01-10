@@ -83,8 +83,6 @@ class stepperCommunication(communication):
 class spectromterCommunication(communication):
     def __init__(self, name, port, baudrate, pinRx, pinTx):
         super().__init__(name, port, baudrate)
-        self.Rx = pinRx
-        self.Tx = pinTx
         self.serial = serial.serial(self.port, self.baudrate)
 
     def getSpectrum(self):
