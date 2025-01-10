@@ -81,7 +81,7 @@ class stepperCommunication(communication):
 #TODO test progress: NOT PERFORMED
 #defines a children class for communication with spectroscope's raspberry pico using UART
 class spectromterCommunication(communication):
-    def __init__(self, name, port, baudrate, pinRx, pinTx):
+    def __init__(self, name, port, baudrate):
         super().__init__(name, port, baudrate)
         self.serial = serial.serial(self.port, self.baudrate)
 
