@@ -14,6 +14,7 @@ bool stringComplete = true;    // Whether the string is complete
 
 int solenoid_pin = 8;
 int servo_pwm_pin = 9;
+int fanSpeed_pwm_pin = 11;
 
 int servo_state = 0;    // servo state is represented by its angle
 int solenoid_state = 0; // solenoid state is represented by 0 or 1. SOLENOID OUT = 0; SOLENOID IN = 1
@@ -23,41 +24,44 @@ void setup()
   Serial.begin(9600);
   pinMode(solenoid_pin, OUTPUT);
   pinMode(servo_pwm_pin, OUTPUT);
+  pinMode(fanSpeed_pwm_pin, OUTPUT);
   servo.attach(servo_pwm_pin);
 
   servo.write(180);
-  delay(500);
-  servo.write(90);
-  delay(500);
+  delay(1000);
+  servo.write(30);
+  delay(1000);
   servo.write(180);
+  
 }
 
 void loop()
 {
+  analogWrite(fanSpeed_pwm_pin, 255); // 50% duty cycle (range: 0-255)
   // Check if the string is complete
-
+/*
   if (stringComplete)
   {
 
     latestInstruction.trim();
     if (latestInstruction == "WIRE CUT")
     {
-      servo.write(0);
+      servo.write(30);
       delay(2000);
       servo.write(180);
       delay(500);
 
-      servo.write(0);
+      servo.write(30);
       delay(2000);
       servo.write(180);
       delay(500);
 
-      servo.write(0);
+      servo.write(30);
       delay(2000);
       servo.write(180);
       delay(500);
 
-      servo.write(0);
+      servo.write(30);
       delay(2000);
       servo.write(180);
       delay(500);
@@ -94,4 +98,5 @@ void serialEvent()
       stringComplete = true;
     }
   }
+  */
 }
